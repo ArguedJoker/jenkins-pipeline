@@ -1,23 +1,20 @@
 pipeline{
         agent any
         stages{
-                stage('Clean Up'){
+                stage('clone ChaperooToDoClient'){
                         steps{
-                                sh "rm -rf ~/jenkins-pipeline"
+                                sh "git clone https://gitlab.com/qacdevops/chaperootodo_client.git"
                         }
                 }
-                stage('Make Directory'){
+                stage('Install Docker and Docker-Compose'){
                         steps{
-                                sh "mkdir ~/jenkins-pipeline"
+                                sh "curl https://get.docker.com | sudo bash"
+                                sh "sudo curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose"
                         }
                 }
-                stage('Make Files'){
+                stage('Deploy Application'){
                         steps{
-                                sh "touch ~/jenkins-pipeline/file1.txt ~/jenkins-pipeline/file2.txt"
-                        }
-                }stage('List Files'){
-                        steps{
-                                sh "ls -al"
+                                sh "sudo docker-compose up -d"
                         }
                 }
         }
