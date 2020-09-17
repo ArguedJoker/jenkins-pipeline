@@ -1,6 +1,11 @@
 pipeline{
         agent any
         stages{
+                stage('Clean Up'){
+                        steps{
+                                sh "rm -rf ~/jenkins-pipeline"
+                        }
+                }
                 stage('Make Directory'){
                         steps{
                                 sh "mkdir ~/jenkins-pipeline"
