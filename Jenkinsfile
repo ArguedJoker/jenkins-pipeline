@@ -1,26 +1,15 @@
-pipeline {
-            agent any
-            stages {
-              stage('Clean up') {
-                steps {
-                  sh "rm -rf ~/jenkins-pipeline"
+pipeline{
+        agent any
+        stages{
+            stage('Make Directory'){
+                steps{
+                    sh "mkdir ~/jenkins-tutorial-test"
                 }
-              }
-              stage('Make Directory') {
-                steps {
-                  sh "mkdir ~/jenkins-pipeline"
-                }
-              }
-              stage('Make Files') {
-                steps {
-                  sh "touch ~/jenkins-pipeline/file1.txt ~/jenkins-pipeline/file2.txt"
-                }
-              }
-              stage('List Files') {
-                steps {
-                  sh "ls -al"
-                }
-              }
             }
-}            
-              
+            stage('Make Files'){
+                steps{
+                    sh "touch ~/jenkins-tutorial-test/file1 ~/jenkins-tutorial-test/file2"
+                }
+            }
+        }    
+}
