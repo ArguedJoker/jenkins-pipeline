@@ -10,14 +10,14 @@ pipeline{
                         steps{
                                 sh '''
                                 curl https://get.docker.com | bash 
-                                sudo apt install -y curl jq && version=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')
-                                sudo curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                                sudo chmod +x /usr/local/bin/docker-compose '''
+                                apt install -y curl jq && version=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r '.tag_name')
+                                curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                                chmod +x /usr/local/bin/docker-compose '''
                         }
                 }
                 stage('Deploy Application'){
                         steps{
-                                sh "sudo docker-compose up -d"
+                                sh "docker-compose up -d"
                         }
                 }
         }
