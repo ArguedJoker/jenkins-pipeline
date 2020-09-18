@@ -9,14 +9,15 @@ pipeline{
                 stage('Install Docker and Docker-Compose'){
                         steps{
                                 sh '''
-                                curl https://get.docker.com | bash
+                                curl https://get.docker.com | sudo bash
                                 curl -L "https://github.com/docker/compose/releases/download/1.27.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-                                chmod +x /usr/local/bin/docker-compose '''
+                                chmod +x /usr/local/bin/docker-compose 
+                                '''
                         }
                 }
                 stage('Deploy Application'){
                         steps{
-                                sh "docker-compose up -d"
+                                sh "sudo docker-compose pull && sudo -E DB_PASSWORD=${DB_PASSWORD} docker-compose up -d"
                         }
                 }
         }
